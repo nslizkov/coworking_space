@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings',
     'rest_framework',
-    #'django_extensions',
+    'django_extensions',
     'django_er_diagram',
 ]
 

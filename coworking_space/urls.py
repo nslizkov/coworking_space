@@ -10,6 +10,7 @@ urlpatterns = [
     path('book/<int:device_id>/', bookings_views.book_device, name='book_device'),
     path('book/', bookings_views.book_device, name='book_device'),
     path('my-bookings/', bookings_views.user_bookings, name='user_bookings'),
+    path('cancel_booking/<int:booking_id>/', bookings_views.cancel_booking, name='cancel_booking'),
 
     path('devices/delete/<int:device_id>/', bookings_views.delete_device, name='delete_device'),
     path('admin_page/', bookings_views.admin_page, name='admin_page'),

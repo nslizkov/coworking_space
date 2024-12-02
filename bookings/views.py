@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -139,17 +140,32 @@ def format_remaining_time(booking_time):
 
 
 @login_required
+def cancel_booking(request, booking_id):
+    # Получаем бронь по ID и проверяем, принадлежит ли она текущему пользователю
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    # Проверяем, принадлежит ли бронь текущему пользователю
+    if booking.user != request.user:
+        return HttpResponseForbidden("Вы не можете отменить эту бронь.")  # Возвращаем ошибку доступа
+
+    booking.delete()  # Удаляем бронь
+    return redirect('user_bookings')  # Перенаправляем обратно на страницу с записями
+
+
+@login_required
 def user_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     output_lines = []
-
     for booking in bookings:
         device_name = booking.device.name
         booking_time = booking.booking_time
         remaining_time = format_remaining_time(booking_time)
-
-        output_lines.append(f"{device_name} - {booking_time.strftime('%d %B %Y, %I %p')} (осталось: {remaining_time})")
-
+        output_lines.append({
+            'device_name': device_name,
+            'booking_time': booking_time.strftime('%d %B %Y, %I %p'),
+            'remaining_time': remaining_time,
+            'booking_id': booking.id  # Сохраняем ID брони для дальнейшего использования
+        })
     return render(request, 'user_bookings.html', {'output_lines': output_lines})
 
 
