@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои записи</title>
+</head>
+<body>
+<h1>Мои записи</h1>
+    <ul>
+        {% for line in output_lines %}
+            <li>{{ line }}</li>
+        {% endfor %}
+    </ul>
+<footer>
+    <a href="{% url 'main' %}">Главная</a>
+    <br>
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'user_bookings' %}">Мои брони</a>
+    <br>
+    <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+</footer>
+</body>
+</html>

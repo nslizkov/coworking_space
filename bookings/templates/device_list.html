@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список устройств</title>
+</head>
+<body>
+<h1>Доступные устройства</h1>
+<ul>
+    {% for device in devices %}
+    <li>
+        {{ device.name }} -
+        <a href="{% url 'book_device' device.id %}">Забронировать</a>
+        {% if is_admin %}
+        <form action="{% url 'delete_device' device.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить это устройство?');">Удалить
+            </button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+<footer>
+    {% if is_admin %}
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'add_device' %}">Добавить устройство</a>
+    <br>
+    <a href="{% url 'admin_bookings' %}">Брони</a>
+    <br>
+    {% endif %}
+    {% if not is_admin %}
+    <a href="{% url 'main' %}">Главная</a>
+    <br>
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'user_bookings' %}">Мои брони</a>
+    <br>
+    {% endif %}
+    <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+</footer>
+</body>
+</html>

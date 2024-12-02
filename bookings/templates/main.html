@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Главная страница</title>
+    </head>
+        <body>
+        {% if user.is_authenticated %}
+        <a href="#">{{ user.username }}</a>
+        {% else %}
+        <a href="{% url 'register' %}">Регистрация</a>
+        {% endif %}
+        <header>
+            <h1>Добро пожаловать в наше коворкинг-пространство</h1>
+            <a href="{% url 'device_list' %}">Список устройств</a>
+            <br>
+            <a href="{% url 'user_bookings' %}">Мои брони</a>
+        </header>
+
+        <main>
+            <h2>Общая информация</h2>
+            <p>Это коворкинг-пространство, где вы можете арендовать различные устройства для работы.</p>
+            <h3>Краткая инструкция</h3>
+            <p>Чтобы начать, зарегистрируйтесь на сайте и выберите устройство, которое хотите арендовать.</p>
+        </main>
+
+        <footer>
+            <a href="{% url 'device_list' %}">Список устройств</a>
+            <br>
+            <a href="{% url 'user_bookings' %}">Мои брони</a>
+            <br>
+            <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+        </footer>
+    </body>
+</html>

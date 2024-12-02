@@ -1,0 +1,30 @@
+<!-- templates/bookings/admin_bookings.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все записи</title>
+</head>
+<body>
+    <h1>Все записи</h1>
+    {% for booking in output_lines %}
+    <div>
+        {{ booking.device_name }} - {{ booking.booking_time }} (осталось: {{ booking.remaining_time }}); Пользователь: {{ booking.user_name }}
+        <form action="{% url 'delete_booking' booking.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+{% endfor %}
+</body>
+<footer>
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'add_device' %}">Добавить устройство</a>
+    <br>
+    <a href="{% url 'admin_bookings' %}">Брони</a>
+    <br>
+    <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+</footer>
+</html>

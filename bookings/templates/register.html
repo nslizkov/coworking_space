@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Регистрация</title>
+    </head>
+    <body>
+        <h2>Регистрация</h2>
+        <p>В качестве логина используйте свои настоящие ФИО. В ином случае запись может быть отменена</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </body>
+</html>

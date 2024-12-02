@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить устройство</title>
+</head>
+<body>
+    <h1>Добавить устройство</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить устройство</button>
+    </form>
+</body>
+<footer>
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'add_device' %}">Добавить устройство</a>
+    <br>
+    <a href="{% url 'admin_bookings' %}">Брони</a>
+    <br>
+    <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+</footer>
+</html>

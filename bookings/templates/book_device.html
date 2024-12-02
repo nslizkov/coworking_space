@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Забронировать {{ device.name }}</title>
+</head>
+<body>
+<h1>Забронировать {{ device.name }}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="time">Доступные промежутки времени:</label>
+    <select name="time" multiple style="height: 400px;">
+        {% for slot in available_slots %}
+        <option value="{{ slot.0 }}">{{ slot.0 }} - {{ slot.1 }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Book</button>
+</form>
+
+<footer>
+    <a href="{% url 'main' %}">Главная</a>
+    <br>
+    <a href="{% url 'device_list' %}">Список устройств</a>
+    <br>
+    <a href="{% url 'user_bookings' %}">Мои брони</a>
+    <br>
+    <p>&copy; 2023 Коворкинг-пространство. Все права защищены.</p>
+</footer>
+</body>
+</html>
+
+
+
